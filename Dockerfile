@@ -10,6 +10,9 @@ RUN apt-get update && apt-get install -y \
     libzip-dev zip unzip curl git \
     && docker-php-ext-install pdo pdo_mysql zip
 
+# Enable .htaccess overrides
+RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' apache2.conf
+
 # Create SSH folder and set root password
 RUN mkdir /var/run/sshd \
     && echo 'root:rootpassword' | chpasswd \
@@ -35,12 +38,13 @@ RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
 # Set correct permissions
 RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html
+    && chmod -R 755 /var/www/html \
+    && chmod -R 755 public
 
-# Set Apache document root to the Lumen public directory
+# Set Apache document root to Laravel public directory
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 
-# Update Apache config
+# Update Apache config for new document root
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 
 # Expose Apache and SSH ports
