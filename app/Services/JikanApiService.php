@@ -6,7 +6,12 @@ use Illuminate\Support\Facades\Http;
 
 class JikanApiService
 {
-    protected string $baseUrl = 'https://api.jikan.moe/v4';
+    protected string $baseUrl;
+
+    public function __construct()
+    {
+        $this->baseUrl = config('services.jikan.api_url');
+    }
 
     public function getTopAnime(int $limit = 12, int $page = 1): array
     {

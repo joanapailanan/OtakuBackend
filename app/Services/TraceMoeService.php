@@ -7,7 +7,12 @@ use Illuminate\Support\Facades\Http;
 
 class TraceMoeService
 {
-    protected string $baseUrl = 'https://api.trace.moe';
+    protected string $baseUrl;
+
+    public function __construct()
+    {
+        $this->baseUrl = config('services.tracemoe.api_url');
+    }
 
     public function searchAnime(UploadedFile $image): array
     {

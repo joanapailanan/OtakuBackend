@@ -4,9 +4,18 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
 
+namespace App\Services;
+
+use Illuminate\Support\Facades\Http;
+
 class KitsuService
 {
-    protected $endpoint = 'https://kitsu.io/api/edge/anime';
+    protected string $endpoint;
+
+    public function __construct()
+    {
+        $this->endpoint = config('services.kitsu.api_url');
+    }
 
     public function searchAnime($title)
     {

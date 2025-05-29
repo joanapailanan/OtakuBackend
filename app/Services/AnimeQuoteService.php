@@ -7,14 +7,13 @@ use Illuminate\Http\Client\RequestException;
 
 class AnimeQuoteService
 {
-    protected string $baseUrl = 'https://api.animechan.io/v1';
+    protected string $baseUrl;
 
-    /**
-     * Fetch a random anime quote from AnimeChan API.
-     *
-     * @return array
-     * @throws \Exception
-     */
+    public function __construct()
+    {
+        $this->baseUrl = config('services.animechan.api_url');
+    }
+
     public function getRandomQuote(): array
     {
         try {

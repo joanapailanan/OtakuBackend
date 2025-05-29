@@ -6,24 +6,22 @@ use Illuminate\Support\Facades\Http;
 
 class WaifuService
 {
-    protected string $baseUrl = 'https://api.waifu.pics';
+    protected string $baseUrl;
+
+    public function __construct()
+    {
+        $this->baseUrl = config('services.waifu.api_url');
+    }
 
     /**
      * Fetch a waifu image from the Waifu Pics API.
-     *
-     * @param string $type The type of image ('sfw' or 'nsfw')
-     * @param string $category The category of the image (e.g., 'waifu', 'neko')
-     * @return array|null The API response data
-     * @throws \Exception If the API request fails or parameters are invalid
      */
     public function fetchImage(string $type, string $category): ?array
     {
-        // Validate type
         if (!in_array(strtolower($type), ['sfw', 'nsfw'])) {
             throw new \Exception("Invalid type: {$type}. Must be 'sfw' or 'nsfw'.");
         }
 
-        // Validate category (based on Waifu Pics API)
         $validCategories = [
             'sfw' => [
                 'waifu', 'neko', 'shinobu', 'megumin', 'bully', 'cuddle', 'hug', 'awoo',

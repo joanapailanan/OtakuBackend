@@ -13,6 +13,21 @@ return [
     | a conventional file to locate the various service credentials.
     |
     */
+    'anilist' => [
+    'api_url' => env('ANILIST_API_URL'),
+    ],
+
+    'animechan' => [
+    'api_url' => env('ANIMECHAN_API_URL'),
+    ],
+
+    'jikan' => [
+    'api_url' => env('JIKAN_API_URL'),
+    ],
+
+    'kitsu' => [
+    'api_url' => env('KITSU_API_URL'),
+    ],
 
     'reddit' => [
     'client_id' => env('REDDIT_CLIENT_ID'),
@@ -20,8 +35,15 @@ return [
     'username' => env('REDDIT_USERNAME'),
     'password' => env('REDDIT_PASSWORD'),
     'user_agent' => env('REDDIT_USER_AGENT'),
-],
+    ],
 
+    'tracemoe' => [
+    'api_url' => env('TRACEMOE_API_URL'),
+    ],
+
+    'waifu' => [
+    'api_url' => env('WAIFU_API_URL'),
+    ],
 
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),
